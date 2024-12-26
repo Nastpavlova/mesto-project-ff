@@ -12,7 +12,7 @@ function createCard(item, deleteCardItem) {
     cardImage.alt = item.name;
     cardTitle.textContent = item.name;
     cardDeleteButton.addEventListener('click', function() {
-        deleteCard(cardElement);
+        deleteCardItem(cardElement);
     });
     return cardElement;
 }
