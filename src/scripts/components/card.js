@@ -1,9 +1,7 @@
-export { createCard, displayCards, deleteCard, likeCard, addNewCardPrepend }; 
-
-const placeList = document.querySelector('.places__list');
+export { createCard, deleteCard, likeCard }; 
 
 // функция создания карточки
-function createCard(item, deleteCardItem, likeButton, openPopup) {
+function createCard(item, deleteCardItem, likeButton, openImagePopup) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
     const cardTitle = cardElement.querySelector('.card__title');
@@ -12,7 +10,7 @@ function createCard(item, deleteCardItem, likeButton, openPopup) {
 
     cardTitle.textContent = item.name;
 
-    //действия с нипками карточки
+    //действия с кнопками карточки
     cardDeleteButton.addEventListener('click', function() {
         deleteCardItem(cardElement);
     });
@@ -21,22 +19,12 @@ function createCard(item, deleteCardItem, likeButton, openPopup) {
     });
 
     //работа с карточками картинок
-    const cardImage = cardElement.querySelectorAll('.card__image');
-    cardImage.forEach(crd => {
-        crd.addEventListener('click', openPopup);
-        crd.src = item.link;
-        crd.alt = item.name;
-    })        
+    const cardImage = cardElement.querySelector('.card__image');
+    cardImage.addEventListener('click', openImagePopup);
+    cardImage.src = item.link;
+    cardImage.alt = item.name;
 
     return cardElement;
-}
-
-// функция выведения карточек на страницу
-function displayCards(initialCardsFull, deleteCard, likeButton, openPopup) {
-    for (const item of initialCardsFull) {
-        const newCardElement = createCard(item, deleteCard, likeButton, openPopup);
-        placeList.append(newCardElement);
-    }
 }
 
 // функция удаления карточки
@@ -47,11 +35,4 @@ function deleteCard(element) {
 // функция лайка карточки
 function likeCard(popupLikeButton) {
     popupLikeButton.classList.toggle('card__like-button_is-active');
-}
-
-// функция добавления новой карточки на страницу
-function addNewCardPrepend(arr, deleteCardFunc, likeCardFunc, initialPopup) {
-    if (arr.name != '') {
-        placeList.prepend(createCard(arr, deleteCardFunc, likeCardFunc, initialPopup));
-    }
 }
