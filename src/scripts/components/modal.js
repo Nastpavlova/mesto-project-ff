@@ -1,11 +1,4 @@
-export { closePopup, openProfileEditPopup, openPopup, closePopupOverlay, closePopupEsc}; 
-
-//функция открытия попапа изменения профиля
-function openProfileEditPopup(popup, inputTitlePopup, inputDescriptionPopup, titlePopupElement, descriptionPopupElement) {
-    inputTitlePopup.value = titlePopupElement.textContent;
-    inputDescriptionPopup.value = descriptionPopupElement.textContent;
-    openPopup(popup);
-}
+export { closePopup, openPopup, closePopupOverlay, closePopupEsc}; 
 
 // функция открытия попапа
 function openPopup(popup) {
