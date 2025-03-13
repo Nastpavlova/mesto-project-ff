@@ -182,7 +182,6 @@ Promise.all([downloadServerPresonInfo, downloadServerCards])
     profileImage.style.backgroundImage = `url('${serverPersonInfo.avatar}')`;
     const id = serverPersonInfo['_id'];
 
-    // у каждой crd есть {link, name, likes {}, owner {}, _id}
     serverCardsInfo.forEach(crd => {
         const card = createCard(id, crd, submitDeleteCard, deleteServerCard, addLikeServerCard, deleteLikeServerCard, initialImagePopup);
         placeList.append(card);
