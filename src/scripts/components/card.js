@@ -47,23 +47,36 @@ function createCard(userId, item, submitDeleteCard, deleteServerCard, addLikeSer
 //функция удаления карточки
 function submitDeleteCard(id, deleteServerCard, card) {
     deleteServerCard(id)
-    card.remove();        
+    .then((res)=>{
+        card.remove();
+    })
+
+    .catch((err) => { 
+        console.log(err); 
+    })
 }
 
 // функция постановки и снятия лайка карточки
 function likeCard(addLikeServerCard, deleteLikeServerCard, popupLikeButton, cardId, countLike) {
     if (popupLikeButton.classList.contains('card__like-button_is-active')) {
-        popupLikeButton.classList.remove('card__like-button_is-active');
         deleteLikeServerCard(cardId)
         .then((res)=> {
+            popupLikeButton.classList.remove('card__like-button_is-active');
             countLike.textContent =  res.likes.length;
         })
 
+        .catch((err) => { 
+            console.log(err); 
+        })
     } else {
-        popupLikeButton.classList.add('card__like-button_is-active');
         addLikeServerCard(cardId)
         .then((res)=> {
+            popupLikeButton.classList.add('card__like-button_is-active');
             countLike.textContent =  res.likes.length;
+        })
+
+        .catch((err) => { 
+            console.log(err); 
         })
     }
 }

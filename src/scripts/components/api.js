@@ -30,10 +30,6 @@ const downloadServerPresonInfo = new Promise (function (resolve) {
     .then((result) => {
         resolve(result)
     })
-    
-    .catch((err) => {
-        console.log(err);
-    })  
 })
 
 // функция загрузки карточек с сервера (возвращает объект со всеми карточками, у которых есть link, name, likes {}, owner {}, _id)
@@ -50,10 +46,6 @@ const downloadServerCards = new Promise (function (resolve) {
     .then((result) => {
         resolve(result);
     })
-
-    .catch((err) => {
-        console.log(err);
-    })  
 })
 
 //функция редактирования профиля (отправляет на сервер изменения после кнопки сохранить в editProfile)
@@ -70,10 +62,6 @@ function editServerProfileInfo(inputName, inputDescription) {
     .then((res) => {
         return returnResponse(res);
     })
-
-    .catch((err) => {
-        console.log(err);
-    })  
 }
 
 //функция добавления новой карточки
@@ -87,10 +75,6 @@ function addServerCard(data) {
     .then((res) => {
         return returnResponse(res);
     })
-
-    .catch((err) => {
-        console.log(err);
-    })  
 }
 
 //функция удаления карточки
@@ -103,10 +87,6 @@ function deleteServerCard(cardId) {
     .then((res) => {
         return returnResponse(res);
     })
-
-    .catch((err) => {
-        console.log(err);
-    })  
 }
 
 //функция постановки лайка карточки
@@ -118,11 +98,7 @@ function addLikeServerCard(cardId) {
 
     .then((res) => {
         return returnResponse(res);
-    })
-
-    .catch((err) => {
-        console.log(err);
-    })   
+    }) 
 }
 
 //функция убрать лайк карточки
@@ -135,10 +111,6 @@ function deleteLikeServerCard(cardId) {
     .then((res) => {
         return returnResponse(res);
     })
-
-    .catch((err) => {
-        console.log(err);
-    })  
 }
 
 //функция обновления аватара пользователя
@@ -154,8 +126,4 @@ function editAvatar(url) {
     .then((res) => {
         return returnResponse(res);
     })  
-       
-    .catch((err) => {
-        console.log(err);
-    })
 }

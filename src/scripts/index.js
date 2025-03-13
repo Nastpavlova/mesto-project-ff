@@ -34,16 +34,15 @@ const popupPictureText = document.querySelector('.popup__caption');
 const popupAvatarEdit = document.querySelector('.popup_type_avatar');
 const popupAvatarEditInputUrl = popupAvatarEdit.querySelector('.popup__input_type_url');
 
-//переменные кнопок закрытия попапов
-const buttonCLosePopupAddCard = popupAddCard.querySelector('.popup__close');
-const buttonCLosePopupPicture = popupPicture.querySelector('.popup__close');
-const buttonCLoseProfileEdit = popupProfileEdit.querySelector('.popup__close');
-const buttonClosePopupAvatarEdit = popupAvatarEdit.querySelector('.popup__close');
+//переменная кнопок закрытия попапов
+const closeButtons = document.querySelectorAll('.popup__close');
 
 //переменные кнопок открытия попапов
 const buttonProfileEdit = document.querySelector('.profile__edit-button');
 const buttonAddCard = document.querySelector('.profile__add-button');
 const buttonEditAvatar= document.querySelector('.edit-profile-button');
+
+enableValidation(configEnableValidation);
 
 //функция улучшения UX
 function renderLoading(isLoading, popup) {
@@ -71,6 +70,11 @@ function submitEditProfile(event) {
         descriptionPageElement.textContent = about;
         closePopup(popupProfileEdit);
     })
+
+    .catch((err) => { 
+        console.log(err); 
+    })
+
     .finally(() => {
         renderLoading(false, popupProfileEdit)
     }); 
@@ -104,6 +108,10 @@ function submitAddCard(event) {
             closePopup(popupAddCard);
         })
 
+        .catch((err) => { 
+            console.log(err); 
+        })
+
         .finally(()=>{
             renderLoading(false, popupAddCard);
         });
@@ -121,6 +129,10 @@ function submitAvatarEdit(event) {
         profileImage.style.backgroundImage = `url('${res.avatar}')`;
         formAvatarEdit.reset();
         closePopup(popupAvatarEdit);
+    })
+
+    .catch((err) => { 
+        console.log(err); 
     })
 
     .finally(()=>{
@@ -141,37 +153,32 @@ formAddCard.addEventListener('submit', submitAddCard);
 formEditProfile.addEventListener('submit', submitEditProfile);
 formAvatarEdit.addEventListener('submit', submitAvatarEdit);
 
-//слушатели кнопок закрытия попапа
-buttonCLosePopupAddCard.addEventListener('click', function() {
-    closePopup(popupAddCard);
-});
-buttonCLosePopupPicture.addEventListener('click', function() {
-    closePopup(popupPicture);
-});
-buttonCLoseProfileEdit.addEventListener('click', function() {
-    closePopup(popupProfileEdit);
-});
-buttonClosePopupAvatarEdit.addEventListener('click', function() {
-    closePopup(popupAvatarEdit);
+
+//слушатель закрытия попапов
+closeButtons.forEach((button) => {
+    const popup = button.closest('.popup');
+    button.addEventListener('click', function() {
+        closePopup(popup);
+    });
 });
 
 //слушатели кнопок открытия попапа
 buttonProfileEdit.addEventListener('click', function() {
     openPopup(popupProfileEdit);
-    clearValidation(popupProfileEdit.querySelector(`${configEnableValidation.formSelector}`)); 
+    clearValidation(popupProfileEdit.querySelector(`${configEnableValidation.formSelector}`), configEnableValidation); 
     popupProfileEditInputTitle.value = titlePageElement.textContent;
     popupProfileEditInputDescription.value = descriptionPageElement.textContent;
-    enableValidation()
+    enableValidation(configEnableValidation);
 
 });
 buttonAddCard.addEventListener('click', function() {
     openPopup(popupAddCard);
-    clearValidation(popupAddCard.querySelector(`${configEnableValidation.formSelector}`)); 
+    clearValidation(popupAddCard.querySelector(`${configEnableValidation.formSelector}`), configEnableValidation); 
 
 });
 buttonEditAvatar.addEventListener('click', function() {
     openPopup(popupAvatarEdit);   
-    clearValidation(popupAvatarEdit.querySelector(`${configEnableValidation.formSelector}`)); 
+    clearValidation(popupAvatarEdit.querySelector(`${configEnableValidation.formSelector}`), configEnableValidation); 
 });
 
 //промисы
@@ -186,6 +193,8 @@ Promise.all([downloadServerPresonInfo, downloadServerCards])
         const card = createCard(id, crd, submitDeleteCard, deleteServerCard, addLikeServerCard, deleteLikeServerCard, initialImagePopup);
         placeList.append(card);
     });
-});
+})
 
-enableValidation();
+.catch((err) => {
+    console.log(err);
+})

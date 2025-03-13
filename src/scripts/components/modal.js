@@ -32,7 +32,7 @@ function closePopupOverlay(event) {
 
 // функция закрытия попапа через Esc
 function closePopupEsc(evt) {
-    if (evt.keyCode == '27') {
+    if (evt.keyCode == 'Escape') {
         const popupElForClose = document.querySelector('.popup_is-opened');
         closePopup(popupElForClose);
     }
